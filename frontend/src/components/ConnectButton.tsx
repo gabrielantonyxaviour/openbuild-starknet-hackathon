@@ -17,7 +17,7 @@ export default function ConnectButton() {
   useEffect(() => {
     if (address) {
       console.log("address: ", address);
-      router.push("/dashboard");
+      router.push("/assets");
     }
   }, [address]);
   return (
