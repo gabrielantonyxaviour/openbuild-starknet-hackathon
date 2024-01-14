@@ -1,10 +1,14 @@
 import Image from "next/image";
 import React from "react";
+import ConnectButton from "../ConnectButton";
 
 export default function Hero() {
   return (
     <div>
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center">
+      <div
+        className="fixed w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center"
+        style={{ zIndex: 10 }}
+      >
         <p className="text-center font-bold font-logo my-6 text-7xl italic text-[#FAFB63] ">
           StarkGG
         </p>
@@ -19,9 +23,7 @@ export default function Hero() {
             alt="starknet"
           />
         </div>
-        <button className="mt-20 bg-gradient-to-r from-[#6BFFF7] to-[#FAFB63] rounded-md p-3 font-bold italic text-lg text-black">
-          CONNECT WALLET
-        </button>
+        <ConnectButton />
       </div>
 
       <video width="100%" height="100%" autoPlay loop muted playsInline>

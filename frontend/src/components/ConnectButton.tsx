@@ -1,38 +1,43 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
+
+import dynamic from "next/dynamic";
+
+import { useAccount } from "@starknet-react/core";
+import { useRouter } from "next/router";
+const ConnectModal = dynamic(() => import("./modals/ConnectModal"), {
+  ssr: false,
+});
 
 export default function ConnectButton() {
+  const router = useRouter();
+  const { address } = useAccount();
+  const [openConnectModal, setOpenConnectModal] = React.useState(false);
+
+  useEffect(() => {
+    if (address) {
+      console.log("address: ", address);
+      router.push("/dashboard");
+    }
+  }, [address]);
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fl    uid">
-          <a className="navbar-brand" href="/">
-            MarkaGames
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarNav"
-          >
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  Home
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
+    <>
+      {openConnectModal && (
+        <ConnectModal
+          closeModal={() => {
+            setOpenConnectModal(false);
+          }}
+        />
+      )}
+      <button
+        className="mt-20 bg-gradient-to-r from-[#6BFFF7] to-[#FAFB63] rounded-md p-3 font-bold italic text-lg text-black"
+        onClick={() => {
+          console.log("open connect modal");
+          setOpenConnectModal(true);
+        }}
+      >
+        CONNECT WALLET
+      </button>
+    </>
   );
 }
