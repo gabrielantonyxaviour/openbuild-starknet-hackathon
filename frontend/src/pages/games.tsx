@@ -1,21 +1,39 @@
 import Games from "@/components/Games";
 import Sidebar from "@/components/Sidebar";
+import DisconnectModal from "@/components/modals/DisconnectModal";
 import { useAccount } from "@starknet-react/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function GamesPage() {
   const { address } = useAccount();
+  const [openDisconnectModal, setOpenDisconnectModal] = useState(false);
   const router = useRouter();
   useEffect(() => {
     console.log("address", address);
   }, [address]);
   return address ? (
     <div>
-      <p className="ml-8 mt-6 font-bold font-logo  text-3xl italic text-[#FAFB63] ">
-        StarkGG
-      </p>
+      {openDisconnectModal && (
+        <DisconnectModal closeModal={() => setOpenDisconnectModal(false)} />
+      )}
+      <div className="flex justify-between">
+        <p className="ml-8 mt-6 font-bold font-logo  text-3xl italic text-[#FAFB63] ">
+          StarkGG
+        </p>
+        <div className="mr-8 ">
+          <button
+            className="mt-3 bg-gradient-to-r from-[#6BFFF7] to-[#FAFB63] rounded-md p-3 font-bold italic text-md text-black"
+            onClick={() => {
+              console.log("open connect modal");
+              setOpenDisconnectModal(true);
+            }}
+          >
+            {address.slice(0, 6) + "..." + address.slice(-4)}
+          </button>
+        </div>
+      </div>
       <Sidebar selected={false} />
       <Games />
     </div>
