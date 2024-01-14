@@ -19,9 +19,12 @@ export default function GamesPage() {
         <DisconnectModal closeModal={() => setOpenDisconnectModal(false)} />
       )}
       <div className="flex justify-between">
-        <p className="ml-8 mt-6 font-bold font-logo  text-3xl italic text-[#FAFB63] ">
+        <Link
+          href={"/"}
+          className="ml-8 mt-6 font-bold font-logo  text-3xl italic text-[#FAFB63] "
+        >
           StarkGG
-        </p>
+        </Link>
         <div className="mr-8 ">
           <button
             className="mt-3 bg-gradient-to-r from-[#6BFFF7] to-[#FAFB63] rounded-md p-3 font-bold italic text-md text-black"
