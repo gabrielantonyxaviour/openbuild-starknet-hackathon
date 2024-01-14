@@ -1,4 +1,5 @@
 import Image from "next/image";
+import AssetCard from "./AssetCard";
 
 export default function Assets() {
   return (
@@ -7,6 +8,14 @@ export default function Assets() {
         YOUR ASSETS
       </p>
       <Image src={"/three.png"} width={100} height={100} alt="three" />
+
+      <div className="grid grid-cols-5 mr-20">
+        <AssetCard image={"/sword.png"} id={"1"} price={69} />
+        <AssetCard image={"/sword.png"} id={"1"} price={69} />
+        <AssetCard image={"/sword.png"} id={"1"} price={69} />
+        <AssetCard image={"/sword.png"} id={"1"} price={69} />
+        <AssetCard image={"/sword.png"} id={"1"} price={69} />
+      </div>
     </div>
   );
 }
