@@ -1,5 +1,6 @@
 import Assets from "@/components/Assets";
 import Sidebar from "@/components/Sidebar";
+import WalletButton from "@/components/WalletButton";
 import DisconnectModal from "@/components/modals/DisconnectModal";
 import { useAccount } from "@starknet-react/core";
 import Image from "next/image";
@@ -9,8 +10,9 @@ import React, { useEffect, useState } from "react";
 
 export default function AssetsPage() {
   const { address } = useAccount();
-  const router = useRouter();
   const [openDisconnectModal, setOpenDisconnectModal] = useState(false);
+
+  const router = useRouter();
   useEffect(() => {
     console.log("address", address);
   }, [address]);
@@ -26,17 +28,12 @@ export default function AssetsPage() {
         >
           StarkGG
         </Link>
-        <div className="mr-8 ">
-          <button
-            className="mt-3 bg-gradient-to-r from-[#6BFFF7] to-[#FAFB63] rounded-md p-3 font-bold italic text-md text-black"
-            onClick={() => {
-              console.log("open connect modal");
-              setOpenDisconnectModal(true);
-            }}
-          >
-            {address.slice(0, 6) + "..." + address.slice(-4)}
-          </button>
-        </div>
+        <WalletButton
+          address={address}
+          onClick={() => {
+            setOpenDisconnectModal(true);
+          }}
+        />
       </div>
 
       <Sidebar selected={true} />

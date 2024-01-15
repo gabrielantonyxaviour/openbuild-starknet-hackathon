@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function AssetCard({
   image,
@@ -10,13 +11,14 @@ export default function AssetCard({
   id: string;
   price: number;
 }) {
+  const router = useRouter();
   return (
     <div
       className={`border-[2px] border-slate-950 hover:border-[#6BFFF7] p-2 rounded-lg font-theme bg-[#FAFB63] text-black hover:bg-black hover:text-white mx-2`}
     >
       <button
         onClick={() => {
-          window.open(image, "_blank");
+          router.push("/asset/" + id);
         }}
       >
         <Image

@@ -1,5 +1,6 @@
 import Games from "@/components/Games";
 import Sidebar from "@/components/Sidebar";
+import WalletButton from "@/components/WalletButton";
 import DisconnectModal from "@/components/modals/DisconnectModal";
 import { useAccount } from "@starknet-react/core";
 import Link from "next/link";
@@ -25,17 +26,12 @@ export default function GamesPage() {
         >
           StarkGG
         </Link>
-        <div className="mr-8 ">
-          <button
-            className="mt-3 bg-gradient-to-r from-[#6BFFF7] to-[#FAFB63] rounded-md p-3 font-bold italic text-md text-black"
-            onClick={() => {
-              console.log("open connect modal");
-              setOpenDisconnectModal(true);
-            }}
-          >
-            {address.slice(0, 6) + "..." + address.slice(-4)}
-          </button>
-        </div>
+        <WalletButton
+          address={address}
+          onClick={() => {
+            setOpenDisconnectModal(true);
+          }}
+        />
       </div>
       <Sidebar selected={false} />
       <Games />

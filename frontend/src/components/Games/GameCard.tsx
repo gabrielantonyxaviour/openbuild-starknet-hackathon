@@ -2,6 +2,7 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function GameCard({
   image,
@@ -12,13 +13,14 @@ export default function GameCard({
   address: string;
   name: string;
 }) {
+  const router = useRouter();
   return (
     <div
       className={`border-[2px] border-slate-950 hover:border-[#6BFFF7] p-2 rounded-lg font-theme bg-[#FAFB63] text-black hover:bg-black hover:text-white mx-2`}
     >
       <button
         onClick={() => {
-          window.open(image, "_blank");
+          router.push("/game/" + address);
         }}
       >
         <Image
@@ -29,7 +31,6 @@ export default function GameCard({
           className="bg-white rounded-lg "
         />
       </button>
-
       <Link href={"/game/" + address} className="my-2">
         <div className="flex justify-center mx-2">
           <div className="w-full">
