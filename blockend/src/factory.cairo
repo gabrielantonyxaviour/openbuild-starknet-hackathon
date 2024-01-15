@@ -17,6 +17,18 @@ mod GameFactory {
         gameOwners: LegacyMap::<ContractAddress, ContractAddress>
     }
 
+    #[event]
+    #[derive(Drop, starknet::Event)]
+    enum Event {
+        GameCreated: GameCreated,
+    }
+
+    #[derive(Drop, starknet::Event)]
+    struct GameCreated {
+        gameAddress: ContractAddress,
+        owner: ContractAddress,
+    }
+
     #[constructor]
     fn constructor(ref self: ContractState, class_hash: ClassHash) {
         self.asset_class_hash.write(class_hash);
@@ -31,6 +43,10 @@ mod GameFactory {
             )
                 .expect('failed to deploy');
             self.gameOwners.write(deployed_address, get_caller_address());
+            self.emit(GameCreated {
+                gameAddress: deployed_address,
+                owner: get_caller_address()
+            });
             return deployed_address;
         }
 

@@ -8,6 +8,7 @@ trait GameTrait<T> {
     fn getAssetCount(self: @T, assetID: u16) -> u8;
     fn getMetadata(self: @T, assetID: u16) -> felt252;
     fn getPrice(self: @T, assetID: u16) -> u64;
+    fn getBalanceOf(self: @T, user: ContractAddress) -> (u16, u8);
 }
 
 #[starknet::contract]
@@ -85,6 +86,10 @@ mod Game {
 
         fn getPrice(self: @ContractState, assetID: u16) -> u64 {
             return self.prices.read(assetID);
+        }
+
+        fn getBalanceOf(self: @ContractState, user: ContractAddress) -> (u16, u8) {
+            return self.balanceOf.read(user);
         }
     }
 }
