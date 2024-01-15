@@ -2,8 +2,12 @@ use starknet::ContractAddress;
 
 #[starknet::interface]
 trait GameTrait<T> {
-    fn createAsset(ref self: T, metadataUrl: felt252, price:u64, quantity:u8) -> u16;
+    fn createAsset(ref self: T, metadataUrl: felt252, price: u64, quantity: u8) -> u16;
     fn purchaseAsset(ref self: T, assetID: u16, quantity: u8);
+    fn getCurrentAssetID(self: @T) -> u16;
+    fn getAssetCount(self: @T, assetID: u16) -> u8;
+    fn getMetadata(self: @T, assetID: u16) -> felt252;
+    fn getPrice(self: @T, assetID: u16) -> u64;
 }
 
 #[starknet::contract]
@@ -13,11 +17,11 @@ mod Game {
 
     #[storage]
     struct Storage {
-        assetId : u16,
-        registry: LegacyMap::<u16,felt252>,
-        quantities: LegacyMap::<u16,u8>,
-        prices: LegacyMap::<u16,u64>,
-        balanceOf: LegacyMap::<ContractAddress,(u16,u8)>
+        assetId: u16,
+        registry: LegacyMap::<u16, felt252>,
+        quantities: LegacyMap::<u16, u8>,
+        prices: LegacyMap::<u16, u64>,
+        balanceOf: LegacyMap::<ContractAddress, (u16, u8)>
     }
 
     #[event]
@@ -40,19 +44,21 @@ mod Game {
 
     #[constructor]
     fn constructor(ref self: ContractState) {
-       self.assetId.write(1_u16);
+        self.assetId.write(1_u16);
     }
 
 
     #[abi(embed_v0)]
     impl AssetImpl of super::GameTrait<ContractState> {
-        fn createAsset(ref self: ContractState, metadataUrl: felt252, price:u64, quantity:u8) -> u16 {
+        fn createAsset(
+            ref self: ContractState, metadataUrl: felt252, price: u64, quantity: u8
+        ) -> u16 {
             let id = self.assetId.read();
             self.registry.write(id, metadataUrl);
-            self.quantities.write(id,quantity);
-            self.prices.write(id,price);
-            self.assetId.write(id+1);
-            self.emit(AssetCreated{ id: id});
+            self.quantities.write(id, quantity);
+            self.prices.write(id, price);
+            self.assetId.write(id + 1);
+            self.emit(AssetCreated { id: id });
             return id;
         }
 
@@ -62,8 +68,23 @@ mod Game {
             assert!(quantityAvailable > 0, "Asset Exhausted");
             self.quantities.write(assetID, quantityAvailable - quantity);
             self.balanceOf.write(get_caller_address(), (assetID, quantity));
-            self.emit(AssetPurchased{id: assetID, user: get_caller_address()});
+            self.emit(AssetPurchased { id: assetID, user: get_caller_address() });
+        }
+
+        fn getCurrentAssetID(self: @ContractState) -> u16 {
+            return self.assetId.read();
+        }
+
+        fn getAssetCount(self: @ContractState, assetID: u16) -> u8 {
+            return self.quantities.read(assetID);
+        }
+
+        fn getMetadata(self: @ContractState, assetID: u16) -> felt252 {
+            return self.registry.read(assetID);
+        }
+
+        fn getPrice(self: @ContractState, assetID: u16) -> u64 {
+            return self.prices.read(assetID);
         }
     }
-
 }

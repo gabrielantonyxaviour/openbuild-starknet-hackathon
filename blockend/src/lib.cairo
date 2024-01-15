@@ -1,3 +1,3 @@
 
-// mod asset;
+mod asset;
 mod factory;
