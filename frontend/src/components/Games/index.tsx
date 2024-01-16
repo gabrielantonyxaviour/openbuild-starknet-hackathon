@@ -23,7 +23,7 @@ export default function Games() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-5 mr-20">
+      <div className="grid grid-cols-5 desktop:grid-cols-8 mr-20">
         <GameCard
           image={"/fate.jpg"}
           name={"Fate of the Dragon"}
