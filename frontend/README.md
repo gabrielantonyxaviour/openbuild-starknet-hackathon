@@ -2,12 +2,10 @@
 
 1. Create Game Page
    - Create game contract call
-2. Game Page
-   - Create asset contract call
-   - Create asset option
-   - Done
-3. Asset Page
+2. Purchase Modal
    - Purchase asset contract call
-4. Purchase Modal
-
-5. Deploy Widget
+3. Create Asset Modal
+   - Create asset contract call
+4. Deploy Widget
+5. Get data from indexer
+6. Test in Forked Game
