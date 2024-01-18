@@ -3,10 +3,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function AssetCard({
+  address,
   image,
   id,
   price,
 }: {
+  address: string;
   image: string;
   id: string;
   price: number;
@@ -18,7 +20,7 @@ export default function AssetCard({
     >
       <button
         onClick={() => {
-          router.push("/asset/" + id);
+          router.push("/asset/" + id + "-" + address);
         }}
       >
         <Image
@@ -30,7 +32,7 @@ export default function AssetCard({
         />
       </button>
 
-      <Link href={"/asset/" + id} className="my-2">
+      <Link href={"/asset/" + id + "-" + address} className="my-2">
         <div className="flex justify-around mx-2">
           <div className="w-full">
             <p className="font-semibold text-center">Token Id</p>

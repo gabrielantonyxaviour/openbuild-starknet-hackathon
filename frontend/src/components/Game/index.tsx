@@ -35,7 +35,7 @@ export default function Game({ address }: { address: string }) {
     ],
   });
   return (
-    <div className=" ml-[200px] mt-[50px]   ">
+    <div className=" ml-[200px] mt-[50px]">
       <div className="flex justify-between w-full">
         <div className="w-[55%]">
           <p className="font-logo font-semibold text-[#6BFFF7] text-2xl">
