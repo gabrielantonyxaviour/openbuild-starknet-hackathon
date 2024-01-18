@@ -3,9 +3,11 @@
 1. Create Game Page
    - Contract call
 2. Game Page
-   - View Game and Purchase Analytics
-   - Create Assets
-   - View Assets
+   - Done
+   - Activities
+     - Purchase
+     - Transfer
+     - Create Asset
 3. Asset Page
    - Asset Image
    - Ownership

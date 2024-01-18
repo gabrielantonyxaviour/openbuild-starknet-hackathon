@@ -1,8 +1,11 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import GameImage from "./GameImage";
+import Assets from "./Assets";
+import Activities from "./Activities";
 
 export default function Game({ address }: { address: string }) {
+  const [selected, setSelected] = useState(true);
   const [fetchedGame, setFetchedGame] = useState<any>({
     name: "Fate of the Dragon",
     image: "/fate.jpg",
@@ -13,14 +16,16 @@ export default function Game({ address }: { address: string }) {
     assets: [
       {
         name: "Sword",
+        tokenId: "1",
         desc: "Can be used to recruit new heroes in your army",
         quantityLimit: 0,
         price: 10,
         amountMinted: 231,
-        image: "https://picsum.photos/200",
+        image: "/sword.png",
       },
       {
         name: "Rage Potion",
+        tokenId: "2",
         desc: "Increase attack and movement speed by 20%",
         quantityLimit: 0,
         price: 25,
@@ -95,6 +100,33 @@ export default function Game({ address }: { address: string }) {
           <GameImage image={fetchedGame.image} />
         </div>
       </div>
+      <div className="flex justify-start mt-12">
+        <button
+          className={`rounded-lg py-2 px-4 mx-3  font-semibold  ${
+            selected ? "bg-[#6BFFF7] text-black " : "bg-black text-[#FAFB63]"
+          }`}
+          onClick={() => {
+            setSelected(true);
+          }}
+        >
+          Assets
+        </button>
+        <button
+          className={`rounded-lg py-2 px-4 mx-3 font-semibold ${
+            selected ? "bg-black text-[#FAFB63]" : "bg-[#6BFFF7] text-black"
+          }`}
+          onClick={() => {
+            setSelected(false);
+          }}
+        >
+          Activity
+        </button>
+      </div>
+      {selected ? (
+        <Assets fetchedGame={fetchedGame} />
+      ) : (
+        <Activities address={fetchedGame.address} />
+      )}
     </div>
   );
 }
