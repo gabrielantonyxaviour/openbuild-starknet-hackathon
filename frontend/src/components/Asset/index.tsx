@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import GameImage from "../Game/GameImage";
+import PurchaseAssetModal from "../Modals/PurchaseAssetModal";
 
 export default function Asset({
   address,
@@ -9,6 +10,7 @@ export default function Asset({
   address: string;
   tokenId: string;
 }) {
+  const [openModal, setOpenModal] = useState(false);
   const [fetchedAsset, setFetchedAsset] = useState<any>({
     name: "Sword",
     image: "/sword.png",
@@ -131,7 +133,7 @@ export default function Asset({
               <button
                 className="bg-[#6BFFF7] text-black font-semibold text-md px-3 py-2  rounded-md "
                 onClick={() => {
-                  // Open purchase asset modal
+                  setOpenModal(true);
                 }}
               >
                 Purhase Asset
@@ -143,6 +145,16 @@ export default function Asset({
           <GameImage image={fetchedAsset.image} />
         </div>
       </div>
+      {openModal && (
+        <PurchaseAssetModal
+          token={fetchedAsset}
+          address={address}
+          tokenId={tokenId}
+          closeModal={() => {
+            setOpenModal(false);
+          }}
+        />
+      )}
     </div>
   );
 }
