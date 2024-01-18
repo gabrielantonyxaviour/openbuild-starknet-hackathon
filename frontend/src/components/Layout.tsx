@@ -1,7 +1,7 @@
 import { useAccount } from "@starknet-react/core";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import DisconnectModal from "./modals/DisconnectModal";
+import DisconnectModal from "./Modals/DisconnectModal";
 import Link from "next/link";
 import WalletButton from "./WalletButton";
 import Sidebar from "./Sidebar";

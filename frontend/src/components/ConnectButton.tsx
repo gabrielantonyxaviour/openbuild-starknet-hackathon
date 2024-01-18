@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 import { useAccount } from "@starknet-react/core";
 import { useRouter } from "next/router";
-const ConnectModal = dynamic(() => import("./modals/ConnectModal"), {
+const ConnectModal = dynamic(() => import("./Modals/ConnectModal"), {
   ssr: false,
 });
 
