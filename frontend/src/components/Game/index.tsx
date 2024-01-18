@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import GameImage from "./GameImage";
 
 export default function Game({ address }: { address: string }) {
   const [fetchedGame, setFetchedGame] = useState<any>({
@@ -12,19 +13,87 @@ export default function Game({ address }: { address: string }) {
     assets: [
       {
         name: "Sword",
-        quantity: 0,
+        desc: "Can be used to recruit new heroes in your army",
+        quantityLimit: 0,
         price: 10,
+        amountMinted: 231,
+        image: "https://picsum.photos/200",
+      },
+      {
+        name: "Rage Potion",
+        desc: "Increase attack and movement speed by 20%",
+        quantityLimit: 0,
+        price: 25,
+        amountMinted: 99,
         image: "https://picsum.photos/200",
       },
     ],
   });
   return (
     <div className=" ml-[200px] mt-[50px]   ">
-      <div>
-        <p className="font-logo font-semibold text-[#6BFFF7] text-2xl">
-          YOUR GAMES
-        </p>
-        <Image src={"/three.png"} width={100} height={100} alt="three" />
+      <div className="flex justify-between w-full">
+        <div className="w-[55%]">
+          <p className="font-logo font-semibold text-[#6BFFF7] text-2xl">
+            {fetchedGame.name}
+          </p>
+          <Image src={"/three.png"} width={100} height={100} alt="three" />
+          <p className="font-bold text-xl text-[#FAFB63] mt-10 ml-2 mb-1">
+            Starknet Address
+          </p>
+          <input
+            type="text"
+            placeholder=""
+            className="font-theme ml-2 font-semibold placeholder:text-[#6c6f70] text-sm placeholder:text-base bg-[#25272b] border border-[#25272b] focus:border-[#6BFFF7] my-1 pl-6 text-white p-2 rounded-xl focus:outline-none w-full  flex-shrink-0 mr-2 "
+            value={fetchedGame.address}
+            disabled={true}
+          ></input>
+
+          <p className="font-bold text-xl text-[#FAFB63] mt-10 ml-2 mb-1">
+            Description
+          </p>
+          <textarea
+            placeholder=""
+            disabled={true}
+            className="font-theme ml-2 font-semibold placeholder:text-[#6c6f70] text-sm placeholder:text-base bg-[#25272b] border border-[#25272b] focus:border-[#6BFFF7] my-1 pl-6 text-white p-2 rounded-xl focus:outline-none  w-full flex-shrink-0 mr-2 "
+            value={fetchedGame.desc}
+          ></textarea>
+          <div className="flex justify-between">
+            <div className="w-[45%]">
+              <p className="font-bold text-xl text-[#FAFB63] mt-10 ml-2 mb-1">
+                Created At
+              </p>
+              <input
+                type="text"
+                placeholder=""
+                className="font-theme ml-2 font-semibold placeholder:text-[#6c6f70] text-sm placeholder:text-base bg-[#25272b] border border-[#25272b] focus:border-[#6BFFF7] my-1 pl-6 text-white p-2 rounded-xl focus:outline-none  w-full flex-shrink-0 mr-2 "
+                value={new Date(fetchedGame.createdAt).toLocaleDateString(
+                  undefined,
+                  {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  }
+                )}
+                disabled={true}
+              ></input>
+            </div>
+            <div className="w-[45%]">
+              <p className="font-bold text-xl text-[#FAFB63] mt-10 ml-2 mb-1">
+                Assets Count
+              </p>
+              <input
+                type="text"
+                placeholder=""
+                className="font-theme  font-semibold placeholder:text-[#6c6f70] text-sm placeholder:text-base bg-[#25272b] border border-[#25272b] focus:border-[#6BFFF7] my-1 pl-6 text-white p-2 rounded-xl focus:outline-none  w-full flex-shrink-0 mr-2"
+                value={fetchedGame.assets.length}
+                disabled={true}
+              ></input>
+            </div>
+          </div>
+        </div>
+        <div className="w-[45%]">
+          <GameImage image={fetchedGame.image} />
+        </div>
       </div>
     </div>
   );
