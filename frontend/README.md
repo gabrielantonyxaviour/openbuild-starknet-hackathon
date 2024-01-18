@@ -8,13 +8,6 @@
    - Done
 3. Asset Page
    - Purchase asset contract call
-   - Asset
-     - Name
-     - image
-     - Game name
-     - Game aaddress
-     - Token id
-     - Maximum mint quantity
-     - Current mint amount
-     - Price
-     - Created at
+4. Purchase Modal
+
+5. Deploy Widget
