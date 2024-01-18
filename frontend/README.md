@@ -1,14 +1,20 @@
 # Tasks
 
 1. Create Game Page
-   - Contract call
+   - Create game contract call
 2. Game Page
+   - Create asset contract call
+   - Create asset option
    - Done
-   - Activities
-     - Purchase
-     - Transfer
-     - Create Asset
 3. Asset Page
-   - Asset Image
-   - Ownership
-   - Price
+   - Purchase asset contract call
+   - Asset
+     - Name
+     - image
+     - Game name
+     - Game aaddress
+     - Token id
+     - Maximum mint quantity
+     - Current mint amount
+     - Price
+     - Created at
