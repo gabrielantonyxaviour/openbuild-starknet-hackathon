@@ -18,6 +18,16 @@ export default function Create() {
         cacheControl: '3600',
         upsert: false
       });
+      const {data: metadata} = await supabase.from('games').insert(
+        [
+          {
+            name,
+            description: desc,
+            imageId
+          }
+        ]
+      )
+      
   }
 
 return (
@@ -99,7 +109,7 @@ return (
         </div>
       </div>
 
-      <button className="bg-[#6BFFF7] text-black font-semibold text-xl p-3 rounded-md my-10">
+      <button onClick={() => createGame()} className="bg-[#6BFFF7] text-black font-semibold text-xl p-3 rounded-md my-10">
         Create Game
       </button>
     </div>
