@@ -3,8 +3,40 @@ import GameCard from "./GameCard";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHammer } from "@fortawesome/free-solid-svg-icons";
+import { supabase } from "@/utils/supabase";
+import { useEffect, useState } from "react";
 
 export default function Games() {
+
+  const [games, setGames] = useState<any>([])
+
+  const getSignedUrl = async (imageId: string) => {
+    const { data, error } = await supabase
+      .storage
+      .from('images')
+      .createSignedUrl(`${imageId}.png`, 300)
+    // console.log(data)
+    console.log(data)
+  }
+
+  const getGames = async () => {
+    const { data, error } = await supabase.from("games").select("*");
+    console.log(data)
+    let gamesData: any = []
+
+    data?.map(async (game: any) => {
+      const imageUrl = await getSignedUrl(game.imageId)
+      gamesData.push({...game, imageUrl: imageUrl})
+    })
+
+    setGames(gamesData)
+    // setGames(data)
+  }
+
+  useEffect(() => {
+    getGames()
+  }, [])
+
   return (
     <div className=" ml-[200px] mt-[50px]   ">
       <div className="flex justify-start">
@@ -24,13 +56,26 @@ export default function Games() {
       </div>
 
       <div className="grid grid-cols-5 desktop:grid-cols-8 mr-20">
-        <GameCard
-          image={"/fate.jpg"}
-          name={"Fate of the Dragon"}
-          address={
-            "0x0473b0e570e2a5b7107ec12de7189bd385195adbeee3e9de9337132780be4e9b"
-          }
-        />
+        {games.length > 0 ? (
+          games.map((game: any) => (
+            <GameCard
+            image={"/fate.jpg"}
+              name={game.name}
+              address={"0x0473b0e570e2a5b7107ec12de7189bd385195adbeee3e9de9337132780be4e9b"}
+            />
+          ))
+        ) : (
+          (
+        <>
+          <GameCard
+            image={"/fate.jpg"}
+            name={"Fate of the Dragon"}
+            address={
+              "0x0473b0e570e2a5b7107ec12de7189bd385195adbeee3e9de9337132780be4e9b"
+            }
+          /></>
+        )
+        )}
       </div>
     </div>
   );
