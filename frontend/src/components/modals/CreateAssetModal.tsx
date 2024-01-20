@@ -2,6 +2,9 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faUmbrella } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import { supabase } from "@/utils/supabase";
+import { v4 as uuidv4 } from 'uuid'
+
 export default function CreateAssetModal({
   address,
   closeModal,
@@ -9,9 +12,22 @@ export default function CreateAssetModal({
   address: string;
   closeModal: () => void;
 }) {
+
+  const createGame = async () => {
+    const assetId = uuidv4()
+    const { data } = await supabase.storage
+      .from("assetDetails")
+      .upload(`${assetId}.png`, image, {
+        cacheControl: '3600',
+        upsert: false
+      });
+      
+  }
+
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
-  const [image, setImage] = React.useState("https://picsum.photos/200");
+  const [image, setImage] = React.useState<any>();
+  const [imagePreview, setImagePreview] = React.useState("https://picsum.photos/200");
   const [price, setPrice] = React.useState("");
   const [quantity, setQuantity] = React.useState("");
   return (
